@@ -113,7 +113,7 @@ export default {
                        capacity:this.form.capacity,
                        start: this.form.start,
                        end: this.form.end,
-                       type: this.form.type,
+                       event_type: this.form.type,
                     }
                 });
 

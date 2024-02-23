@@ -27,8 +27,7 @@
             <h2>{{ event.price }}</h2>
             <h2>{{ event.start }}</h2>
             <h2>{{ event.end }}</h2>
-            <button type="button" @click="attendEvent(event.uuid)"
-                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Attend</button>
+            <button type="button" @click="viewEvent(event.uuid)">View Event</button>
         </div>
     </div>
     <h1 v-if="events.length == 0">No events</h1>
@@ -71,18 +70,8 @@ export default {
             console.log(response);
         },
 
-        async attendEvent(eventId){
-            const response = await $fetch('http://127.0.0.1:8000/events/attend/', {
-                method: 'POST',
-                body: {
-                    event_id: eventId
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            alert(response.message)
-            console.log(response);
+        async viewEvent(eventId){
+            return await navigateTo(`/events/${eventId}`)
         }
     },
     created() {

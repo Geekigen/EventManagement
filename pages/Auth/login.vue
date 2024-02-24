@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-50 dark:bg-gray-900">
+    <section class="relative overflow-hidden bg-[url(https://res.cloudinary.com/di2a8gjsq/image/upload/v1708684224/people-2597679_bmmkfm.jpg)] bg-cover bg-top bg-no-repeat">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -8,7 +8,7 @@
                         <strong class="block font-medium text-red-800"> Something went wrong </strong>
 
                         <p class="mt-2 text-sm text-red-700">
-                            {{ error }}
+                            <Error v-if="error" text = "error"/>
                         </p>
                     </div>
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

@@ -71,7 +71,7 @@ export default {
         },
 
         async viewEvent(eventId){
-            return await navigateTo(`/events/${eventId}`)
+            return await navigateTo(`/events/event/${eventId}`)
         }
     },
     created() {

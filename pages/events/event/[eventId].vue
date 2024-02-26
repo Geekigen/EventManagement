@@ -15,21 +15,28 @@
                         }} - {{ event.description }}</h5>
                     </a>
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Venue : {{ event.venue }}</p>
-                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Available tickets : {{ event.capacity }}</p>
+                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Available tickets : {{ event.capacity }}
+                    </p>
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Ticket price : Kshs. {{ event.price }}</p>
-                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Start : {{ event.start}}</p>
+                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Start : {{ event.start }}</p>
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">End : {{ event.end }}</p>
                     <div class="flex flex-row gap-10 flex-wrap justify-center items-center my-10">
-                        
-                       
-                        <button type="button" @click="viewAttendees"
-                        class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
-                        <button type="button" @click="viewRoles"
-                        class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Roles</button>
-                        <button type="button" @click="updateEvent"
-                        class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
-                        <button type="button" @click="deleteEvent"
-                        class="w-100 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Delete</button>
+
+                        <button type="button" v-if="userId !== event.creator_id && !alreadyBooked" @click="bookEvent"
+                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book
+                            event</button>
+                        <button type="button" v-if="userId !== event.creator_id && alreadyBooked" @click="unbookEvent"
+                            class="w-100 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook
+                            event</button>
+
+                        <button type="button" v-if="userId == event.creator_id" @click="viewAttendees"
+                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
+                        <button type="button" v-if="userId == event.creator_id" @click="viewRoles"
+                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Roles</button>
+                        <button type="button" v-if="userId == event.creator_id" @click="updateEvent"
+                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
+                        <button type="button" v-if="userId == event.creator_id" @click="deleteEvent"
+                            class="w-100 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Delete</button>
                     </div>
                 </div>
             </div>
@@ -40,7 +47,7 @@
         <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
 
         <!-- Code block starts -->
-        <div v-if="attendees.length" id="popover"
+        <div v-if="attendees" id="popover"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2">
             <div class="w-full bg-white rounded shadow-2xl">
                 <div class="relative bg-gray-200 rounded-t py-4 px-4 xl:px-8">
@@ -64,7 +71,7 @@
 
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -74,6 +81,8 @@
 
 <script>
 
+import { storeToRefs } from 'pinia'
+import { authStore } from '~/store';
 export default {
     name: "Event",
     data() {
@@ -81,7 +90,13 @@ export default {
             error: "",
             eventId: this.$route.params.eventId,
             event: {},
-            attendees: []
+            attendees: [],
+            alreadyBooked: false,
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
+            permissions: {
+                create_event: authStore().getPermission("create_event")
+            }
         }
     },
     methods: {
@@ -89,6 +104,8 @@ export default {
             const response = await $fetch('http://127.0.0.1:8000/events/get/id/', {
                 method: 'POST',
                 body: {
+                    user_id: this.userId,
+                    token: this.token,
                     event_id: this.eventId
                 },
                 headers: {
@@ -97,20 +114,33 @@ export default {
             });
             this.event = response.events[0]
             console.log(response);
+
+            // const store = authStore()
+            // const {username} = storeToRefs(store)
+            // console.log(username.value);
+            // store.setUsername("mark")
+            // console.log(username.value);
         },
 
-        async attendEvent() {
-            const response = await $fetch('http://127.0.0.1:8000/events/attend/', {
-                method: 'POST',
-                body: {
-                    event_id: this.eventId
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            alert(response.message)
-            console.log(response);
+        async bookEvent() {
+            try {
+                const response = await $fetch('http://127.0.0.1:8000/events/attend/', {
+                    method: 'POST',
+                    body: {
+                        user_id: this.userId,
+                        token: this.token,
+                        event_id: this.eventId
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                alert(response.message)
+                this.searchAttendee()
+            } catch (error) {
+                alert(error)
+                this.error = error
+            }
         },
 
         async updateEvent() {
@@ -122,6 +152,8 @@ export default {
                 const response = await $fetch('http://127.0.0.1:8000/events/delete/', {
                     method: 'POST',
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         event_id: this.eventId
                     },
                     headers: {
@@ -143,6 +175,8 @@ export default {
                 const response = await $fetch('http://127.0.0.1:8000/events/attendees/get/', {
                     method: 'POST',
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         event_id: this.eventId
                     },
                     headers: {
@@ -156,17 +190,42 @@ export default {
             }
         },
 
-        async viewAttendees(){
-            return  navigateTo(`/events/attendees/${this.eventId}/`)
+        async searchAttendee() {
+            try {
+                const response = await $fetch('http://127.0.0.1:8000/events/attendees/search/', {
+                    method: 'POST',
+                    body: {
+                        user_id: this.userId,
+                        token: this.token,
+                        event_id: this.eventId
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                console.log(response);
+                if (response.attendees.length) {
+                    return this.alreadyBooked = true
+                } else {
+                    return this.alreadyBooked = false
+                }
+            } catch (error) {
+                this.error = error
+            }
         },
 
-        async viewRoles(){
-            return  navigateTo(`/events/roles/${this.eventId}/`)
+        async viewAttendees() {
+            return navigateTo(`/events/attendees/${this.eventId}/`)
+        },
+
+        async viewRoles() {
+            return navigateTo(`/events/roles/${this.eventId}/`)
         }
 
     },
 
     created() {
+        this.searchAttendee()
         this.getEvent(),
         this.getAttendees()
     }

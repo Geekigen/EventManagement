@@ -58,19 +58,19 @@
 
         <form action="#" class="mt-8 grid grid-cols-6 gap-6">
           <div class="col-span-6 sm:col-span-3">
-            <label for="FirstName" class="block text-sm font-medium text-gray-700">
-              First Name
+            <label for="username" class="block text-sm font-medium text-gray-700">
+              Username
             </label>
 
             <input
             v-model="form.username"
               type="text"
-              id="FirstName"
-              name="first_name"
+              id="username"
+              name="username"
               class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
-
+<!-- 
           <div class="col-span-6 sm:col-span-3">
             <label for="LastName" class="block text-sm font-medium text-gray-700">
               Last Name
@@ -83,7 +83,7 @@
               name="last_name"
               class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
-          </div>
+          </div> -->
 
           <div class="col-span-6">
             <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>

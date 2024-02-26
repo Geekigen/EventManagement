@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-start">
         <div v-if="events.length == 0">
             <h1>No events</h1>
         </div>
@@ -28,7 +28,9 @@
                 <div
                     class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
                     <a href="#" @click="viewEvent(event.uuid)">
-                        <img class="rounded-t-lg" src="https://st2.depositphotos.com/1017986/7924/i/450/depositphotos_79249744-stock-photo-group-of-happy-friends-at.jpg" alt="">
+                        <img class="rounded-t-lg"
+                            src="https://st2.depositphotos.com/1017986/7924/i/450/depositphotos_79249744-stock-photo-group-of-happy-friends-at.jpg"
+                            alt="">
                     </a>
                     <div class="p-5">
                         <a href="#" @click="viewEvent(event.uuid)">
@@ -66,6 +68,10 @@
 </template>
 
 <script>
+
+import { storeToRefs } from 'pinia'
+import { authStore } from '~/store';
+
 export default {
     name: "Events",
     data() {
@@ -103,6 +109,13 @@ export default {
         },
 
         async viewEvent(eventId) {
+            const store = authStore()
+
+
+            const { user, token, permissions } = storeToRefs(store)
+            console.log(user.value);
+            console.log(token.value);
+            console.log(permissions.value);
             return await navigateTo(`/events/event/${eventId}`)
         }
     },

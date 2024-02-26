@@ -1,9 +1,8 @@
 <template>
     <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div
-                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 overflow-auto">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8 overflow-auto">
                     <div role="alert" v-if="error" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
                         <strong class="block font-medium text-red-800"> Something went wrong </strong>
 
@@ -14,7 +13,7 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an event
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="#">
+                    <form class="space-y-4 md:space-y-6 mt-4 overflow-auto" action="#">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event name</label>
                             <input type="text" name="name" id="name" v-model="form.name"
@@ -100,7 +99,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/create/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/create/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

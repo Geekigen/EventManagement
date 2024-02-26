@@ -149,7 +149,7 @@
               Already have an account?
               <a href="/auth/login" class="text-gray-700 underline">Log in</a>.
             </p>
-<Error v-if="error" text = "error"/>
+           <Error v-if="error" text = "error"/>
           </div>
         </form>
       </div>

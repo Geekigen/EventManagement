@@ -1,6 +1,6 @@
 <template>
     <header >
-      <div class="navigation bg-white">
+      <div class="navigation bg-white block">
         <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
             <div class="md:flex md:items-center md:gap-12">
@@ -35,45 +35,18 @@
                   <li>
                     <a
                       class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
+                      href="/events"
                     >
-                      Careers
+                      See Events
                     </a>
                   </li>
       
                   <li>
                     <a
                       class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
+                      href="/events/create-event"
                     >
-                      History
-                    </a>
-                  </li>
-      
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Services
-                    </a>
-                  </li>
-      
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Projects
-                    </a>
-                  </li>
-      
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Blog
+                      Create event
                     </a>
                   </li>
                 </ul>

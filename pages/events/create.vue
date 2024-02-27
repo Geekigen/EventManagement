@@ -120,11 +120,17 @@
 </template>
 
 <script>
+
+import { authStore } from '~/store';
+
 export default {
     name: 'CreateEvent',
     data() {
         return {
             error: "",
+            eventTypes:[],
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
             form: {
                 name: '',
                 imagename:'',
@@ -147,6 +153,8 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         name: this.form.name,
                         description: this.form.description,
                         venue: this.form.venue,
@@ -157,6 +165,8 @@ export default {
                         event_type: this.form.type,
                     }
                 });
+
+                console.log(response);
 
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
@@ -185,6 +195,10 @@ export default {
             this.eventTypes = response.event_types
         },
 
+    },
+
+    created(){
+        this.getEventTypes()
     }
 }
 </script>

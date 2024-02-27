@@ -1,5 +1,5 @@
 <template>
-    <div class="flex md:flex-row flex-col items-center justify-center px-6 py-8 w-full">
+    <div class="flex md:flex-row flex-col items-center justify-center px-6 py-8 w-full bg-gray-100">
         <div v-if="event" :key="event.uuid"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 shadow-2xl">
 
@@ -22,31 +22,29 @@
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">End : {{ event.end }}</p>
                     <div class="flex flex-row gap-10 flex-wrap justify-center items-center my-10">
 
-                        <button type="button" v-if="userId !== event.creator_id && !alreadyBooked" @click="bookEvent"
-                            class="w-48 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book
-                            event</button>
-                        <button type="button" v-if="userId !== event.creator_id && alreadyBooked" @click="unbookEvent"
-                            class="w-48 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook
-                            event</button>
+                        <button type="button" v-if="loggedIn && userId !== event.creator_id && !alreadyBooked" @click="bookEvent"
+                            class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book</button>
+                        <button type="button" v-if="loggedIn && userId !== event.creator_id && alreadyBooked" @click="unbookEvent"
+                            class="w-36 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook</button>
                         
-                            <button type="button" @click="invite"
-                            class="w-48 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Invite</button>
+                            <button v-if="loggedIn" type="button" @click="invite"
+                            class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Invite</button>
 
-                        <button type="button" v-if="userId == event.creator_id" @click="viewAttendees"
-                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
-                        <button type="button" v-if="userId == event.creator_id" @click="viewRoles"
-                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Roles</button>
-                        <button type="button" v-if="userId == event.creator_id" @click="updateEvent"
-                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
-                        <button type="button" v-if="userId == event.creator_id" @click="deleteEvent"
-                            class="w-100 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Delete</button>
+                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="viewAttendees"
+                            class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
+                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="viewRoles"
+                            class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Roles</button>
+                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="updateEvent"
+                            class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
+                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="deleteEvent"
+                            class="w-36 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="flex md:flex-row flex-col items-start justify-center px-6 py-8 w-full">
+    <div class="flex md:flex-row flex-col items-start justify-center px-6 py-8 w-full  bg-gray-100">
         <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
 
         <!-- Code block starts -->
@@ -97,6 +95,7 @@ export default {
             alreadyBooked: false,
             userId: authStore().getUser.uuid,
             token: authStore().getToken,
+            loggedIn: authStore().isLoggedIn,
             permissions: {
                 create_event: authStore().getPermission("create_event")
             }

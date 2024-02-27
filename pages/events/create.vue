@@ -1,9 +1,9 @@
 <template>
-
-    <section class="bg-black">
+ <section class="bg-black">
       <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <Error v-if="error" text = "error"/>
          <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-            <form action="#" class="space-y-4">
+            <form action="#" enctype="multipart/form-data" class="space-y-4">
               <div>
                 <label  for="name">Event Name</label>
                 <input
@@ -50,24 +50,30 @@
               </div>
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label  for="email">Image</label>
+                  <label  for="imagename">Image</label>
                   <input
+                    @change="onFileChange"
                     class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
                     placeholder="Venue"
                     type="file"
-                    id="email"
+                    id="imagename"
+                    name="image"
                   />
                 </div>
     
                 <div>
-                  <label  for="type">Type</label>
-                  <input
-                    class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
-                    placeholder="Event type"
-                    type="text"
-                    id="type"
-                    v-model="form.type"
-                  />
+                  <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700"> event_type</label>
+
+                    <select
+                      name="type"
+                      id="type"
+                      v-model="form.type"
+                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                    >
+                    <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div>
@@ -88,6 +94,7 @@
                     class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
                     type="datetime-local"
                     id="start"
+                    v-model="form"
                   />
                 </div>
     
@@ -120,20 +127,19 @@
 </template>
 
 <script>
-
 import { authStore } from '~/store';
 
 export default {
     name: 'CreateEvent',
     data() {
         return {
+            image:'',
             error: "",
             eventTypes:[],
             userId: authStore().getUser.uuid,
             token: authStore().getToken,
             form: {
                 name: '',
-                imagename:'',
                 description: '',
                 venue: '',
                 price: '',
@@ -145,9 +151,27 @@ export default {
         }
     },
     methods: {
+        onFileChange(e){
+          var files=e.target.files
+          if(!files.length){
+            return
+          }
+          this.createImage(files[0])
+        },
+
+        createImage(file){
+          var image =new Image()
+          var reader = new FileReader()
+
+          reader.onload = (e) =>{
+            this.image = e.target.result
+          }
+          reader.readAsDataURL(file)
+        },
+
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/create/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/create/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -163,13 +187,14 @@ export default {
                         start: this.form.start,
                         end: this.form.end,
                         event_type: this.form.type,
-                    }
+                        image: this.image
+                    },
                 });
 
                 console.log(response);
 
                 if (response.code == "480") {
-                    return await navigateTo(`/auth/login/`)
+                    return await navigateTo("/auth/login")
                 }
 
                 alert(response.message)
@@ -177,7 +202,7 @@ export default {
                 if (response.code !== "201") {
                     return this.error = response.message
                 }
-                return await navigateTo(`/events/`)
+                return await navigateTo("/events/my-events")
 
             } catch (error) {
                 this.error = "Connection error"
@@ -186,7 +211,7 @@ export default {
 
         },
         async getEventTypes() {
-            const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
+            const response = await $fetch('http://127.0.0.1:9000/events/event-types/get/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { authStore } from '~/store';
 
 export default {
     name: "Attendees",
@@ -52,6 +53,8 @@ export default {
             error: "",
             eventId: this.$route.params.eventId,
             attendees:[],
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
         }
     },
     methods:{
@@ -87,10 +90,12 @@ export default {
                     mode: "cors",
                     credentials: "include",
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         attendee_id: attendeeId,
                     }
                 });
-                
+
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
                 }

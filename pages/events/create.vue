@@ -202,7 +202,7 @@ export default {
                 if (response.code !== "201") {
                     return this.error = response.message
                 }
-                return await navigateTo("/events/my-events")
+                return await navigateTo(`/events/my-events`)
 
             } catch (error) {
                 this.error = "Connection error"

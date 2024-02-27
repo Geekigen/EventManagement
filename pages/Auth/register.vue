@@ -46,13 +46,13 @@
           <Error v-if="error" :text= error />
 
           <form action="#" class="mt-8 grid grid-cols-6 gap-6 bg-white p-10">
-            <div class="col-span-6 sm:col-span-3">
-              <label for="username" class="block text-sm font-medium text-gray-700">
+            <div class="col-span-6">
+              <label for="username" class="block text-sm font-medium text-gray-700 mb-3">
                 Username
               </label>
 
               <input v-model="form.username" type="text" id="username" name="username"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
             <!-- 
           <div class="col-span-6 sm:col-span-3">
@@ -70,32 +70,32 @@
           </div> -->
 
             <div class="col-span-6">
-              <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
+              <label for="Email" class="block text-sm font-medium text-gray-700 mb-3 "> Email </label>
 
               <input v-model="form.email" type="email" id="Email" name="email"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
-              <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
+              <label for="Password" class="block text-sm font-medium text-gray-700 mb-3"> Password </label>
 
               <input v-model="form.password1" type="password" id="Password" name="password"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
-              <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
+              <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700 mb-3">
                 Password Confirmation
               </label>
 
               <input v-model="form.password2" type="password" id="PasswordConfirmation" name="password_confirmation"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
-            <div>
-              <label for="HeadlineAct" class="block text-sm font-medium text-gray-900"> Role </label>
+            <div class="col-span-6 ">
+              <label for="HeadlineAct" class="block text-sm font-medium text-gray-900 mb-3"> Role </label>
 
               <select v-model="form.role" name="HeadlineAct" id="HeadlineAct"
-                class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="">Please select</option>
                 <option value="attendee">attendee</option>
                 <option value="creator">creator</option>

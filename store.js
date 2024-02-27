@@ -23,6 +23,9 @@ export const authStore = defineStore({
         },
         logout(){
             this.loggedIn = false
+            this.user = {}
+            this.permissions = []
+            this.token = ""
         }
     },
 

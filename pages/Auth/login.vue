@@ -92,10 +92,7 @@ export default {
                 store.setUser(response.data)
                 store.setToken(response.data.token)
                 store.setPermissions(response.permissions)
-                const { user, token , permissions} = storeToRefs(store)
-                console.log(user.value);
-                console.log(token.value);
-                console.log(permissions.value);
+                store.login()
 
                 return await navigateTo(`/`)
 
@@ -105,6 +102,10 @@ export default {
             }
 
         }
+    },
+    created(){
+        const store = authStore()
+        store.logout()
     }
 }
 </script>

@@ -1,9 +1,7 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-start">
-        <div v-if="events.length == 0">
-            <h1>No events</h1>
-        </div>
-        <form v-if="events.length" class="flex-none max-w-md mx-auto my-10">
+    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+        
+        <form v-if="events.length" class="fixed top-20 max-w-md mx-auto my-10">
             <label for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -51,17 +49,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div v-for="event in events" :key="event.uuid" class="mb-8">
-            <h2>{{ event.uuid }}</h2>
-            <h2>{{ event.name }}</h2>
-            <h2>{{ event.description }}</h2>
-            <h2>{{ event.venue }}</h2>
-            <h2>{{ event.capacity }}</h2>
-            <h2>{{ event.price }}</h2>
-            <h2>{{ event.start }}</h2>
-            <h2>{{ event.end }}</h2>
-            <button type="button" @click="viewEvent(event.uuid)">View Event</button>
-        </div> -->
         </div>
         <h1 v-if="events.length == 0">No events</h1>
     </section>
@@ -109,13 +96,6 @@ export default {
         },
 
         async viewEvent(eventId) {
-            const store = authStore()
-
-
-            const { user, token, permissions } = storeToRefs(store)
-            console.log(user.value);
-            console.log(token.value);
-            console.log(permissions.value);
             return await navigateTo(`/events/event/${eventId}`)
         }
     },

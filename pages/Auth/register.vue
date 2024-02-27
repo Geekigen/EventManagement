@@ -139,7 +139,7 @@
 
 
           <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button
+            <button type="button"
               class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
             @click = handleSubmit >
               Create an account
@@ -191,10 +191,14 @@ export default {
                         user_role: this.form.role
                     }
                 });
+                
+                console.log(response);
 
                 if (response.code !== "201") {
+                    alert(response.message)
                     return this.error = response.message
                 }
+                alert(response.message)
                 return await navigateTo(`/auth/confirm-email/${this.form.email}`)
 
             } catch (error) {

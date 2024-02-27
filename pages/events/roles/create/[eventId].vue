@@ -68,6 +68,12 @@ export default {
                     }
                 });
 
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
+                
+                alert(response.message)
+
                 if (response.code !== "201") {
                     return this.error = response.message
                 }

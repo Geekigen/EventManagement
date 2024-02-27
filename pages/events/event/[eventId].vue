@@ -23,11 +23,14 @@
                     <div class="flex flex-row gap-10 flex-wrap justify-center items-center my-10">
 
                         <button type="button" v-if="userId !== event.creator_id && !alreadyBooked" @click="bookEvent"
-                            class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book
+                            class="w-48 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book
                             event</button>
                         <button type="button" v-if="userId !== event.creator_id && alreadyBooked" @click="unbookEvent"
-                            class="w-100 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook
+                            class="w-48 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook
                             event</button>
+                        
+                            <button type="button" @click="invite"
+                            class="w-48 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Invite</button>
 
                         <button type="button" v-if="userId == event.creator_id" @click="viewAttendees"
                             class="w-100 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
@@ -113,13 +116,6 @@ export default {
                 },
             });
             this.event = response.events[0]
-            console.log(response);
-
-            // const store = authStore()
-            // const {username} = storeToRefs(store)
-            // console.log(username.value);
-            // store.setUsername("mark")
-            // console.log(username.value);
         },
 
         async bookEvent() {
@@ -135,8 +131,40 @@ export default {
                         'Content-Type': 'application/json'
                     },
                 });
+
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
                 alert(response.message)
                 this.searchAttendee()
+                this.getEvent()
+            } catch (error) {
+                alert(error)
+                this.error = error
+            }
+        },
+
+        async unbookEvent() {
+            try {
+                const response = await $fetch('http://127.0.0.1:8000/events/unbook/', {
+                    method: 'POST',
+                    body: {
+                        user_id: this.userId,
+                        token: this.token,
+                        event_id: this.eventId
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
+                alert(response.message)
+                console.log(response)
+                this.searchAttendee()
+                this.getEvent()
             } catch (error) {
                 alert(error)
                 this.error = error
@@ -160,8 +188,12 @@ export default {
                         'Content-Type': 'application/json'
                     },
                 });
+
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
                 alert(response.message)
-                console.log(response);
+                return await navigateTo(`/events/`)
             } catch (error) {
                 this.error = error
             }
@@ -220,7 +252,11 @@ export default {
 
         async viewRoles() {
             return navigateTo(`/events/roles/${this.eventId}/`)
-        }
+        },
+
+        async invite() {
+            return await navigateTo(`/events/invite/${this.eventId}`)
+        },
 
     },
 

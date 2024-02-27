@@ -90,6 +90,12 @@ export default {
                         attendee_id: attendeeId,
                     }
                 });
+                
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
+                
+                alert(response.message)
 
                 if (response.code !== "200") {
                     return this.error = response.message

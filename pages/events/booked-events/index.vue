@@ -49,17 +49,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div v-for="event in events" :key="event.uuid" class="mb-8">
-            <h2>{{ event.uuid }}</h2>
-            <h2>{{ event.name }}</h2>
-            <h2>{{ event.description }}</h2>
-            <h2>{{ event.venue }}</h2>
-            <h2>{{ event.capacity }}</h2>
-            <h2>{{ event.price }}</h2>
-            <h2>{{ event.start }}</h2>
-            <h2>{{ event.end }}</h2>
-            <button type="button" @click="viewEvent(event.uuid)">View Event</button>
-        </div> -->
         </div>
         <h1 v-if="events.length == 0">No events</h1>
     </section>

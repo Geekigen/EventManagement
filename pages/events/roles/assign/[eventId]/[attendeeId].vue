@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { authStore } from '~/store';
 export default {
     name: 'AssignRole',
     data() {
@@ -43,6 +44,8 @@ export default {
             eventId: this.$route.params.eventId,
             attendeeId: this.$route.params.attendeeId,
             roles: [],
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
             form: {
                 roleId: ''
             }
@@ -59,6 +62,8 @@ export default {
                     mode: "cors",
                     credentials: "include",
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         role_id: this.form.roleId,
                         attendee_id: this.attendeeId,
                     }

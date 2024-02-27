@@ -30,13 +30,13 @@
                 </li>
 
                 <li v-if="permissions.create_event">
-                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/events/created">
+                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/events/my-events">
                     My events
                   </a>
                 </li>
 
                 <li v-if="isLoggedIn">
-                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/events/booked">
+                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/events/booked-events">
                     Booked events
                   </a>
                 </li>

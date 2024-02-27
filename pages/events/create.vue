@@ -16,31 +16,37 @@
                     </h1>
                     <form class="space-y-4 md:space-y-6" action="#">
                         <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event name</label>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
+                                name</label>
                             <input type="text" name="name" id="name" v-model="form.name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="name" required="">
                         </div>
                         <div>
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event description</label>
+                            <label for="description"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
+                                description</label>
                             <textarea name="description" id="description" v-model="form.description"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="description" required=""></textarea>
                         </div>
                         <div>
-                            <label for="venue" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue</label>
+                            <label for="venue"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue</label>
                             <input type="text" name="venue" id="venue" v-model="form.venue"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="venue" required="">
                         </div>
                         <div>
-                            <label for="capacity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Capacity</label>
+                            <label for="capacity"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Capacity</label>
                             <input type="number" name="capacity" id="capacity" v-model="form.capacity"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="capacity" required="">
                         </div>
                         <div>
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                            <label for="price"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
                             <input type="number" name="price" id="price" v-model="form.price"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="capacity" required="">
@@ -48,22 +54,20 @@
                         <div>
                             <label for="start"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
-                            <input type="datetime-local" name="start" id="start"
-                                v-model="form.start"
+                            <input type="datetime-local" name="start" id="start" v-model="form.start"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
                         <div>
                             <label for="end"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
-                            <input type="datetime-local" name="end" id="end"
-                                v-model="form.end"
+                            <input type="datetime-local" name="end" id="end" v-model="form.end"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
                         <div>
-                            <label for="type"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event type</label>
+                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
+                                type</label>
                             <select name="type" id="type" v-model="form.type"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="festival" selected>Festival</option>
@@ -73,8 +77,7 @@
                         <div>
                             <label for="url"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
-                            <input type="datetime-local" name="end" id="end"
-                                v-model="form.end"
+                            <input type="datetime-local" name="end" id="end" v-model="form.end"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
@@ -103,7 +106,7 @@ export default {
                 capacity: '',
                 start: '',
                 end: '',
-                type:''
+                type: ''
             }
         }
     },
@@ -116,21 +119,21 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: {
-                       name: this.form.name,
-                       description: this.form.description,
-                       venue: this.form.venue,
-                       price: this.form.price,
-                       capacity:this.form.capacity,
-                       start: this.form.start,
-                       end: this.form.end,
-                       event_type: this.form.type,
+                        name: this.form.name,
+                        description: this.form.description,
+                        venue: this.form.venue,
+                        price: this.form.price,
+                        capacity: this.form.capacity,
+                        start: this.form.start,
+                        end: this.form.end,
+                        event_type: this.form.type,
                     }
                 });
 
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
                 }
-                
+
                 alert(response.message)
 
                 if (response.code !== "201") {
@@ -143,7 +146,17 @@ export default {
                 console.error('Error:', error);
             }
 
-        }
+        },
+        async getEventTypes() {
+            const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            this.eventTypes = response.event_types
+        },
+
     }
 }
 </script>

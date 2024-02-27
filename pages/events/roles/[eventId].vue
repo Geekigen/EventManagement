@@ -40,14 +40,16 @@
 </template>
 
 <script>
-
+import { authStore } from '~/store';
 export default{
     name:"Roles",
     data(){
         return{
             error:"",
             roles:[],
-            eventId: this.$route.params.eventId
+            eventId: this.$route.params.eventId,
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
         }
     },
     methods:{
@@ -87,6 +89,8 @@ export default{
                     mode:"cors",
                     credentials:"include",
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         role_id: roleId
                     }
                 });

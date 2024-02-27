@@ -39,12 +39,16 @@
 </template>
 
 <script>
+import { authStore } from '~/store';
+
 export default {
     name: 'CreateRole',
     data() {
         return {
             error: "",
             eventId: this.$route.params.eventId,
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
             form: {
                 name: '',
                 description: '',
@@ -62,6 +66,8 @@ export default {
                     mode:"cors",
                     credentials:"include",
                     body: {
+                        user_id: this.userId,
+                        token: this.token,
                         event_id: this.eventId,
                         name: this.form.name,
                         description: this.form.description,

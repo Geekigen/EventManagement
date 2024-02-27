@@ -1,7 +1,7 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+    <section class="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center">
         
-        <form v-if="events.length" class="fixed top-20 max-w-md mx-auto my-10">
+        <form v-if="events.length" class="max-w-md mx-auto my-10">
             <label for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -20,7 +20,7 @@
             </div>
         </form>
 
-        <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row items-center justify-center">
+        <div v-if="events.length" class="w-full bg-gray-100 flex gap-10 flex-row flex-wrap items-center justify-center mb-20">
             <div v-for="event in events" :key="event.uuid" class="max-w-2xl">
 
                 <div

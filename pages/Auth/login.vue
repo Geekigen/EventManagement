@@ -79,6 +79,7 @@ export default {
                 });
 
 
+
                 if (response.code == "450") {
                     return await navigateTo(`/auth/confirm-email/${response.data.email}`)
                 }

@@ -18,25 +18,25 @@
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Available tickets : {{ event.capacity }}
                     </p>
                     <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Ticket price : Kshs. {{ event.price }}</p>
-                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Start : {{ event.start }}</p>
-                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">End : {{ event.end }}</p>
+                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">Start : {{ new Date(event.start).toDateString() }}</p>
+                    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">End : {{ new Date(event.end).toDateString()  }}</p>
                     <div class="flex flex-row gap-10 flex-wrap justify-center items-center my-10">
 
-                        <button type="button" v-if="loggedIn && userId !== event.creator_id && !alreadyBooked" @click="bookEvent"
+                        <button type="button" v-if="loggedIn && userId !== event.creator_id && !alreadyBooked && event.event_state == 'active'" @click="bookEvent"
                             class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Book</button>
-                        <button type="button" v-if="loggedIn && userId !== event.creator_id && alreadyBooked" @click="unbookEvent"
+                        <button type="button" v-if="loggedIn && userId !== event.creator_id && alreadyBooked && event.event_state == 'active'" @click="unbookEvent"
                             class="w-36 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unbook</button>
                         
-                            <button v-if="loggedIn" type="button" @click="invite"
+                            <button v-if="loggedIn && event.event_state == 'active'" type="button" @click="invite"
                             class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Invite</button>
 
-                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="viewAttendees"
+                        <button type="button" v-if="loggedIn && userId == event.creator_id && event.event_state == 'active'" @click="viewAttendees"
                             class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Attendees</button>
-                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="viewRoles"
+                        <button type="button" v-if="loggedIn && userId == event.creator_id && event.event_state == 'active'" @click="viewRoles"
                             class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Roles</button>
-                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="updateEvent"
+                        <button type="button" v-if="loggedIn && userId == event.creator_id && event.event_state == 'active'" @click="updateEvent"
                             class="w-36 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
-                        <button type="button" v-if="loggedIn && userId == event.creator_id" @click="deleteEvent"
+                        <button type="button" v-if="loggedIn && userId == event.creator_id && event.event_state == 'active'" @click="deleteEvent"
                             class="w-36 text-white bg-blue-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Delete</button>
                     </div>
                 </div>
@@ -157,11 +157,10 @@ export default {
                     },
                 });
 
+                alert(response.message)
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
                 }
-                alert(response.message)
-                console.log(response)
                 this.searchAttendee()
                 this.getEvent()
             } catch (error) {
@@ -192,7 +191,7 @@ export default {
                     return await navigateTo(`/auth/login/`)
                 }
                 alert(response.message)
-                return await navigateTo(`/events/`)
+                return await navigateTo(`/events/my-events`)
             } catch (error) {
                 this.error = error
             }

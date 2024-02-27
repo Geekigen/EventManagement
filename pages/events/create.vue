@@ -69,6 +69,16 @@
                                 <option value="festival" selected>Festival</option>
                             </select>
                         </div>
+
+                        <div>
+                            <label for="url"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
+                            <input type="datetime-local" name="end" id="end"
+                                v-model="form.end"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required="">
+                        </div>
+
                         <button type="button" @click="handleSubmit"
                             class="w-full text-black bg-sky-500/50 hover:bg-sky-500/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create
                             an event</button>
@@ -116,6 +126,12 @@ export default {
                        event_type: this.form.type,
                     }
                 });
+
+                if (response.code == "480") {
+                    return await navigateTo(`/auth/login/`)
+                }
+                
+                alert(response.message)
 
                 if (response.code !== "201") {
                     return this.error = response.message

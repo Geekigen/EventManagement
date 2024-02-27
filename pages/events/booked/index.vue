@@ -1,7 +1,7 @@
 <template>
     <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
-        
-        <form v-if="events.length" class="fixed top-20 max-w-md mx-auto my-10">
+
+        <!-- <form v-if="events.length" class="flex-none max-w-md mx-auto my-10">
             <label for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -18,7 +18,7 @@
                 <button type="button" @click="searchEvents"
                     class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
-        </form>
+        </form> -->
 
         <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row items-center justify-center">
             <div v-for="event in events" :key="event.uuid" class="max-w-2xl">
@@ -39,7 +39,7 @@
                         <a href="#" @click="viewEvent(event.uuid)"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             View event
-                            <svg @click="viewEvent(event.uuid)" class="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20"
+                            <svg class="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -49,6 +49,17 @@
                     </div>
                 </div>
             </div>
+            <!-- <div v-for="event in events" :key="event.uuid" class="mb-8">
+            <h2>{{ event.uuid }}</h2>
+            <h2>{{ event.name }}</h2>
+            <h2>{{ event.description }}</h2>
+            <h2>{{ event.venue }}</h2>
+            <h2>{{ event.capacity }}</h2>
+            <h2>{{ event.price }}</h2>
+            <h2>{{ event.start }}</h2>
+            <h2>{{ event.end }}</h2>
+            <button type="button" @click="viewEvent(event.uuid)">View Event</button>
+        </div> -->
         </div>
         <h1 v-if="events.length == 0">No events</h1>
     </section>
@@ -64,36 +75,40 @@ export default {
     data() {
         return {
             events: [],
-            form: {
-                search: ''
-            }
+            userId: authStore().getUser.uuid,
+            token: authStore().getToken,
         };
     },
     methods: {
         async getEvents() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/', {
-                method: 'GET',
+            const response = await $fetch('http://127.0.0.1:8000/events/get/booked/', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                mode: "cors",
+                credentials: "include",
+                body: {
+                    user_id: this.userId,
+                }
             });
             this.events = response.events
             console.log(response);
         },
 
-        async searchEvents() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/search/', {
-                method: 'POST',
-                body: {
-                    search: this.form.search
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            this.events = response.events
-            console.log(response);
-        },
+        // async searchEvents() {
+        //     const response = await $fetch('http://127.0.0.1:8000/events/get/search/', {
+        //         method: 'POST',
+        //         body: {
+        //             search: this.form.search
+        //         },
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //     });
+        //     this.events = response.events
+        //     console.log(response);
+        // },
 
         async viewEvent(eventId) {
             return await navigateTo(`/events/event/${eventId}`)

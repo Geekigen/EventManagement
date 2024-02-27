@@ -58,19 +58,19 @@
 
         <form action="#" class="mt-8 grid grid-cols-6 gap-6">
           <div class="col-span-6 sm:col-span-3">
-            <label for="FirstName" class="block text-sm font-medium text-gray-700">
-              First Name
+            <label for="username" class="block text-sm font-medium text-gray-700">
+              Username
             </label>
 
             <input
             v-model="form.username"
               type="text"
-              id="FirstName"
-              name="first_name"
+              id="username"
+              name="username"
               class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
-
+<!-- 
           <div class="col-span-6 sm:col-span-3">
             <label for="LastName" class="block text-sm font-medium text-gray-700">
               Last Name
@@ -83,7 +83,7 @@
               name="last_name"
               class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
-          </div>
+          </div> -->
 
           <div class="col-span-6">
             <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
@@ -139,7 +139,7 @@
 
 
           <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button
+            <button type="button"
               class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
             @click = handleSubmit >
               Create an account
@@ -191,10 +191,14 @@ export default {
                         user_role: this.form.role
                     }
                 });
+                
+                console.log(response);
 
                 if (response.code !== "201") {
+                    alert(response.message)
                     return this.error = response.message
                 }
+                alert(response.message)
                 return await navigateTo(`/auth/confirm-email/${this.form.email}`)
 
             } catch (error) {

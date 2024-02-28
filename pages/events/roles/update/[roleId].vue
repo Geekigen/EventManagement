@@ -58,7 +58,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/update/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/roles/update/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ export default {
 
         async getRole(){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/get/id/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/roles/get/id/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

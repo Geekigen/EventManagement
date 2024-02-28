@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         async getEvents() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/created/', {
+            const response = await $fetch('http://127.0.0.1:9000/events/get/created/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ export default {
         },
 
         // async searchEvents() {
-        //     const response = await $fetch('http://127.0.0.1:8000/events/get/search/', {
+        //     const response = await $fetch('http://127.0.0.1:9000/events/get/search/', {
         //         method: 'POST',
         //         body: {
         //             search: this.form.search

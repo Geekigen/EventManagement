@@ -49,7 +49,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/invite/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/invite/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         async getEvent() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/id/', {
+            const response = await $fetch('http://127.0.0.1:9000/events/get/id/', {
                 method: 'POST',
                 body: {
                     user_id: this.userId,
@@ -119,7 +119,7 @@ export default {
 
         async bookEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attend/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/attend/', {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -145,7 +145,7 @@ export default {
 
         async unbookEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/unbook/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/unbook/', {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -175,7 +175,7 @@ export default {
 
         async deleteEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/delete/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/delete/', {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -202,7 +202,7 @@ export default {
 
         async getAttendees() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attendees/get/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/attendees/get/', {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -222,7 +222,7 @@ export default {
 
         async searchAttendee() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attendees/search/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/attendees/search/', {
                     method: 'POST',
                     body: {
                         user_id: this.userId,

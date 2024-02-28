@@ -124,39 +124,39 @@
 
 <script>
 export default {
-  name: 'Register',
-  data() {
-    return {
-      error: "",
-      form: {
-        username: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password1: '',
-        password2: '',
-        role: ''
-      }
-    }
-  },
-  methods: {
-    async handleSubmit() {
-      try {
-        const response = await $fetch('http://127.0.0.1:8000/users/register/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: {
-            username: this.form.username,
-            email: this.form.email,
-            password1: this.form.password1,
-            password2: this.form.password2,
-            user_role: this.form.role
-          }
-        });
-
-        console.log(response);
+    name: 'Register',
+    data() {
+        return {
+            error: "",
+            form: {
+                username: '',
+                email: '',
+                firstName: '',
+                lastName: '',
+                password1: '',
+                password2: '',
+                role: ''
+            }
+        }
+    },
+    methods: {
+        async handleSubmit() {
+            try {
+                const response = await $fetch('http://127.0.0.1:9000/users/register/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: {
+                        username: this.form.username,
+                        email: this.form.email,
+                        password1: this.form.password1,
+                        password2: this.form.password2,
+                        user_role: this.form.role
+                    }
+                });
+                
+                console.log(response);
 
         if (response.code !== "201") {
           return this.error = response.message

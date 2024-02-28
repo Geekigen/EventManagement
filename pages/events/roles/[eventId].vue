@@ -55,7 +55,7 @@ export default{
     methods:{
         async getRoles(){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/get/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/roles/get/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ export default{
 
         async deleteRole(roleId){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/delete/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/roles/delete/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

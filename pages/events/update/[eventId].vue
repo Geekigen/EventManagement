@@ -106,7 +106,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/update/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/update/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -142,7 +142,7 @@ export default {
 
         async getEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/get/id/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/get/id/', {
                     method: 'POST',
                     body: {
                         event_id: this.eventId

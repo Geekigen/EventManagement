@@ -60,7 +60,7 @@ export default {
     methods:{
         async getAttendees() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attendees/get/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/attendees/get/', {
                     method: 'POST',
                     body: {
                         event_id: this.eventId
@@ -82,7 +82,7 @@ export default {
 
         async unassignRole(attendeeId){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/unassign/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/roles/unassign/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -46,7 +46,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/users/forgot-password/', {
+                const response = await $fetch('http://127.0.0.1:9000/users/forgot-password/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

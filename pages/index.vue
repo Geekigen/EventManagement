@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     async getEvents() {
-      const response = await $fetch('http://127.0.0.1:8000/events/get/', {
+      const response = await $fetch('http://127.0.0.1:9000/events/get/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export default {
     },
 
     async getEventTypes() {
-      const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
+      const response = await $fetch('http://127.0.0.1:9000/events/event-types/get/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

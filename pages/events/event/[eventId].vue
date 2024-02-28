@@ -2,6 +2,8 @@
     <div class="flex md:flex-row flex-col items-center justify-center px-6 py-8 w-full bg-gray-100">
         <div v-if="event" :key="event.uuid"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 shadow-2xl">
+            
+            <Error v-if="error" :text=error />
 
             <div class="bg-white shadow-md border border-gray-200 rounded-lg w-full dark:bg-gray-800 dark:border-gray-700">
 

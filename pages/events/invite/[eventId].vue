@@ -73,6 +73,8 @@ export default {
                     return this.error = response.message
                 }
 
+                console.log(response);
+
                 alert(response.message)
                 return await navigateTo(`/events/event/${this.eventId}`)
 

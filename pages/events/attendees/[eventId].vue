@@ -7,6 +7,7 @@
         <div id="popover"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 pb-10 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 flex flex-col justify-center items-center gap-10">
             <div class="w-full bg-white rounded shadow-2xl pb-6">
+                <Error v-if="error" :text=error />
                 <div class="relative bg-gray-200 rounded-t py-4 px-4 xl:px-8 mb-5">
                     <h1>Attendees</h1>
                 </div>

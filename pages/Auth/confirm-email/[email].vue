@@ -21,13 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div role="alert" v-if="error" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
-                        <strong class="block font-medium text-red-800"> Something went wrong </strong>
-
-                        <p class="mt-2 text-sm text-red-700">
-                            {{ error }}
-                        </p>
-                    </div>
+                    <Error v-if="error" :text=error />
                     <form class="space-y-4 md:space-y-10" action="#">
                         <div>
 

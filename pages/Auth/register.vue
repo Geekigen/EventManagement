@@ -54,20 +54,7 @@
               <input v-model="form.username" type="text" id="username" name="username"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
-            <!-- 
-          <div class="col-span-6 sm:col-span-3">
-            <label for="LastName" class="block text-sm font-medium text-gray-700">
-              Last Name
-            </label>
-
-            <input
-            v-model="form.lastName"
-              type="text"
-              id="LastName"
-              name="last_name"
-              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-            />
-          </div> -->
+           
 
             <div class="col-span-6">
               <label for="Email" class="block text-sm font-medium text-gray-700 mb-3 "> Email </label>

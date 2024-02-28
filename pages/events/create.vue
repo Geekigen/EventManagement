@@ -1,95 +1,129 @@
-<template class="my-20">
-    <section class="bg-gray-200 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 ">
-            <div
-                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <div role="alert" v-if="error" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
-                        <strong class="block font-medium text-red-800"> Something went wrong </strong>
-
-                        <p class="mt-2 text-sm text-red-700">
-                            {{ error }}
-                        </p>
-                    </div>
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Create an event
-                    </h1>
-                    <form class="space-y-4 md:space-y-6" action="#">
-                        <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
-                                name</label>
-                            <input type="text" name="name" id="name" v-model="form.name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name" required="">
-                        </div>
-                        <div>
-                            <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
-                                description</label>
-                            <textarea name="description" id="description" v-model="form.description"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="description" required=""></textarea>
-                        </div>
-                        <div>
-                            <label for="venue"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue</label>
-                            <input type="text" name="venue" id="venue" v-model="form.venue"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="venue" required="">
-                        </div>
-                        <div>
-                            <label for="capacity"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Capacity</label>
-                            <input type="number" name="capacity" id="capacity" v-model="form.capacity"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="capacity" required="">
-                        </div>
-                        <div>
-                            <label for="price"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                            <input type="number" name="price" id="price" v-model="form.price"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="capacity" required="">
-                        </div>
-                        <div>
-                            <label for="start"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
-                            <input type="datetime-local" name="start" id="start" v-model="form.start"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
-                        <div>
-                            <label for="end"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
-                            <input type="datetime-local" name="end" id="end" v-model="form.end"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
-                        <div>
-                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
-                                type</label>
-                            <select name="type" id="type" v-model="form.type"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}</option>
-                            </select>
-                        </div>
-
-                        <!-- <div>
-                            <label for="url"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End</label>
-                            <input type="datetime-local" name="end" id="end" v-model="form.end"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div> -->
-
-                        <button type="button" @click="handleSubmit"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create
-                            an event</button>
-                    </form>
-                </div>
+<template>
+  <section class="bg-black">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+      <Error v-if="error" text = "error"/>
+       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+          <form action="#" enctype="multipart/form-data" class="space-y-4">
+            <div>
+              <label  for="name">Event Name</label>
+              <input
+                class="w-full rounded-lg bg-gray-300 border-black p-3 text-sm"
+                placeholder="What is your event's Name?"
+                type="text"
+                id="name"
+                v-model="form.name"
+              />
             </div>
+  
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div>
+                <label  for="email">Venue</label>
+                <input
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  placeholder="Venue"
+                  type="text"
+                  id="email"
+                  v-model="form.venue"
+                />
+              </div>
+  
+              <div>
+                <label  for="phone">Capacity</label>
+                <input
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  placeholder="Capacity"
+                  type="text"
+                  id="phone"
+                  v-model="form.capacity"
+                />
+              </div>
+              <div>
+                <label  for="phone">Price</label>
+                <input
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  placeholder="Price"
+                  type="text"
+                  id="phone"
+                  v-model="form.price"
+                />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <!-- <div>
+                <label  for="imagename">Image</label>
+                <input
+                  @change="onFileChange"
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  placeholder="Venue"
+                  type="file"
+                  id="imagename"
+                  name="image"
+                />
+              </div> -->
+  
+              <div>
+                <div>
+                  <label for="type" class="block text-sm font-medium text-gray-700"> event_type</label>
+
+                  <select
+                    name="type"
+                    id="type"
+                    v-model="form.type"
+                    class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                  >
+                  <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label  for="message">Message</label>
+  
+              <textarea
+                class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                placeholder="Description"
+                rows="8"
+                id="message"
+                v-model="form.description"
+              ></textarea>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label  for="start">Starting date </label>
+                <input
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  type="datetime-local"
+                  id="start"
+                  v-model="form.start"
+                />
+              </div>
+  
+              <div>
+                <label  for="end">End Date </label>
+                <input
+                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                  type="datetime-local"
+                  id="end"
+                  v-model="form.end"
+                />
+              </div>
+            </div>
+  
+          
+  
+            <div class="mt-4">
+              <button
+                @click="handleSubmit"
+                type="button"
+                class="inline-block w-full rounded-lg bg-blue-700 px-5 py-3 font-medium text-white sm:w-auto"
+              >
+                Create Event
+              </button>
+            </div>
+          </form>
         </div>
-    </section>
+    </div>
+  </section>
 </template>
 
 <script>

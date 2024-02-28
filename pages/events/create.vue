@@ -1,9 +1,9 @@
 <template>
- <section class="bg-black">
+
+    <section class="bg-black">
       <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <Error v-if="error" text = "error"/>
          <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-            <form action="#" enctype="multipart/form-data" class="space-y-4">
+            <form action="#" class="space-y-4">
               <div>
                 <label  for="name">Event Name</label>
                 <input
@@ -50,30 +50,24 @@
               </div>
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label  for="imagename">Image</label>
+                  <label  for="email">Image</label>
                   <input
-                    @change="onFileChange"
                     class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
                     placeholder="Venue"
                     type="file"
-                    id="imagename"
-                    name="image"
+                    id="email"
                   />
                 </div>
     
                 <div>
-                  <div>
-                    <label for="type" class="block text-sm font-medium text-gray-700"> event_type</label>
-
-                    <select
-                      name="type"
-                      id="type"
-                      v-model="form.type"
-                      class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
-                    >
-                    <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}</option>
-                    </select>
-                  </div>
+                  <label  for="type">Type</label>
+                  <input
+                    class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
+                    placeholder="Event type"
+                    type="text"
+                    id="type"
+                    v-model="form.type"
+                  />
                 </div>
               </div>
               <div>
@@ -94,7 +88,6 @@
                     class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
                     type="datetime-local"
                     id="start"
-                    v-model="form"
                   />
                 </div>
     
@@ -140,6 +133,7 @@ export default {
             token: authStore().getToken,
             form: {
                 name: '',
+                imagename:'',
                 description: '',
                 venue: '',
                 price: '',

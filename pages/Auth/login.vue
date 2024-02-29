@@ -1,13 +1,13 @@
 <template>
     <section
-        class="relative overflow-hidden">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        class="relative overflow-hidden bg-gray-200">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 shadow-2xl">
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
 
-                    <Error v-if="error" text="error" />
+                    <Error v-if="error" :text=error />
 
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
@@ -30,7 +30,7 @@
                                 required="">
                         </div>
                         <button type="button" @click="handleSubmit"
-                            class="w-full text-black bg-sky-500/50 hover:bg-sky-500/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+                            class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Forgot password? <a href="/auth/forgot-password"
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Change here</a>
@@ -77,6 +77,7 @@ export default {
                         password: this.form.password,
                     }
                 });
+
 
 
                 if (response.code == "450") {

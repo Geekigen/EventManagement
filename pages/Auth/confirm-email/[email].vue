@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-50 dark:bg-gray-900">
+    <section class="bg-gray-200 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -21,13 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div role="alert" v-if="error" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
-                        <strong class="block font-medium text-red-800"> Something went wrong </strong>
-
-                        <p class="mt-2 text-sm text-red-700">
-                            {{ error }}
-                        </p>
-                    </div>
+                    <Error v-if="error" :text=error />
                     <form class="space-y-4 md:space-y-10" action="#">
                         <div>
 

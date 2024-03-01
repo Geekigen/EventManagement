@@ -64,7 +64,6 @@ export default {
     },
     methods: {
         async handleSubmit() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/users/login/`, {
                     method: 'POST',

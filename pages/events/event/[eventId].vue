@@ -102,7 +102,6 @@ export default {
     methods: {
         handleImageError,
         async getEvent() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
                     method: 'POST',
@@ -123,7 +122,6 @@ export default {
         },
 
         async bookEvent() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attend/`, {
                     method: 'POST',
@@ -149,7 +147,6 @@ export default {
         },
 
         async unbookEvent() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/unbook/`, {
                     method: 'POST',
@@ -179,7 +176,6 @@ export default {
         },
 
         async deleteEvent() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/delete/`, {
                     method: 'POST',
@@ -207,7 +203,6 @@ export default {
         },
 
         async getAttendees() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/get/`, {
                     method: 'POST',
@@ -227,7 +222,6 @@ export default {
         },
 
         async searchAttendee() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/search/`, {
                     method: 'POST',

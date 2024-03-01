@@ -50,7 +50,6 @@ export default {
     },
     methods: {
         async assignRole() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/assign/`, {
                     method: 'POST',
@@ -86,7 +85,6 @@ export default {
         },
 
         async getRoles() {
-            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/get/`, {
                     method: 'POST',

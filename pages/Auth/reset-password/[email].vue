@@ -76,7 +76,6 @@ export default {
     },
     methods: {
         async handleSubmit() {
-            this.error = "";
             try {
                 if (this.form.password1 !== this.form.password2) {
                     return this.error = "Passwords do not match"

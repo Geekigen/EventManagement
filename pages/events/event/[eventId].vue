@@ -2,7 +2,8 @@
     <div class="flex md:flex-row flex-col items-center justify-center px-6 py-8 w-full bg-gray-100">
         <div v-if="event" :key="event.uuid"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 shadow-2xl">
-            
+
+            <Error :text="error"></Error>
 
             <div class="bg-white shadow-md border border-gray-200 rounded-lg w-full dark:bg-gray-800 dark:border-gray-700">
 
@@ -44,9 +45,6 @@
     </div>
 
     <div class="flex md:flex-row flex-col items-start justify-center px-6 py-8 w-full  bg-gray-100">
-        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-
-        <!-- Code block starts -->
         <div v-if="attendees" id="popover"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2">
             <div class="w-full bg-white rounded shadow-2xl">
@@ -104,22 +102,28 @@ export default {
     methods: {
         handleImageError,
         async getEvent() {
-            const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
-                method: 'POST',
-                body: {
-                    user_id: this.userId,
-                    token: this.token,
-                    event_id: this.eventId
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            this.event = response.events[0]
-            this.event.image = Base64ToBlobUrl(this.event.image)
+            this.error = "";
+            try {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
+                    method: 'POST',
+                    body: {
+                        user_id: this.userId,
+                        token: this.token,
+                        event_id: this.eventId
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                this.event = response.events[0]
+                this.event.image = Base64ToBlobUrl(this.event.image)
+            } catch (error) {
+                this.error = "Connection error"
+            }
         },
 
         async bookEvent() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attend/`, {
                     method: 'POST',
@@ -140,12 +144,12 @@ export default {
                 this.searchAttendee()
                 this.getEvent()
             } catch (error) {
-                alert(error)
-                this.error = error
+                this.error = "Connection error"
             }
         },
 
         async unbookEvent() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/unbook/`, {
                     method: 'POST',
@@ -166,8 +170,7 @@ export default {
                 this.searchAttendee()
                 this.getEvent()
             } catch (error) {
-                alert(error)
-                this.error = error
+                this.error = "Connection error"
             }
         },
 
@@ -176,6 +179,7 @@ export default {
         },
 
         async deleteEvent() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/delete/`, {
                     method: 'POST',
@@ -195,7 +199,7 @@ export default {
                 alert(response.message)
                 return await navigateTo(`/events/my-events`)
             } catch (error) {
-                this.error = error
+                this.error = "Connection error"
             }
         },
         async createRole() {
@@ -203,6 +207,7 @@ export default {
         },
 
         async getAttendees() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/get/`, {
                     method: 'POST',
@@ -217,11 +222,12 @@ export default {
                 });
                 this.attendees = response.attendees
             } catch (error) {
-                this.error = error
+                this.error = "Connection error"
             }
         },
 
         async searchAttendee() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/search/`, {
                     method: 'POST',
@@ -240,7 +246,7 @@ export default {
                     return this.alreadyBooked = false
                 }
             } catch (error) {
-                this.error = error
+                this.error = "Connection error"
             }
         },
 

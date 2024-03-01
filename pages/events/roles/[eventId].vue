@@ -54,6 +54,7 @@ export default{
     },
     methods:{
         async getRoles(){
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/get/`, {
                     method: 'POST',
@@ -78,6 +79,7 @@ export default{
         },
 
         async deleteRole(roleId){
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/delete/`, {
                     method: 'POST',

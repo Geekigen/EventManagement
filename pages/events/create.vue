@@ -119,6 +119,7 @@ export default {
     },
 
     async handleSubmit() {
+      this.error = "";
       try {
         const response = await $fetch(`${this.$config.public.apiUrl}/events/create/`, {
           method: 'POST',
@@ -157,6 +158,7 @@ export default {
 
     },
     async getEventTypes() {
+      this.error = "";
       try {
         const response = await $fetch(`${this.$config.public.apiUrl}/events/event-types/get/`, {
           method: 'GET',

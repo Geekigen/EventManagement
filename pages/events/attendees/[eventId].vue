@@ -58,6 +58,7 @@ export default {
     },
     methods: {
         async getAttendees() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/get/`, {
                     method: 'POST',
@@ -79,6 +80,7 @@ export default {
         },
 
         async unassignRole(attendeeId) {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/unassign/`, {
                     method: 'POST',

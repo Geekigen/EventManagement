@@ -48,6 +48,7 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/invite/`, {
                     method: 'POST',

@@ -101,6 +101,7 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/update/`, {
                     method: 'POST',
@@ -132,11 +133,12 @@ export default {
                 return await navigateTo(`/events/event/${this.eventId}`)
 
             } catch (error) {
-                this.error = error
+                this.error = "Conncetion error"
             }
         },
 
         async getEvent() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
                     method: 'POST',
@@ -158,7 +160,7 @@ export default {
                 this.form.type = eventData.type
 
             } catch (error) {
-                this.error = error
+                this.error = "Conncetion error"
             }
         }
     },

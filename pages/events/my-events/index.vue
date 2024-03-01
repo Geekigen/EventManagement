@@ -42,7 +42,6 @@ export default {
     name: "Events",
     data() {
         return {
-            src: '',
             events: [],
             userId: authStore().getUser.uuid,
             token: authStore().getToken,

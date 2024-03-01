@@ -56,6 +56,7 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            this.error = "";
             try {
                 const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/create/`, {
                     method: 'POST',

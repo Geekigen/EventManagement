@@ -29,28 +29,22 @@
             </div>
           </div>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <!-- <div>
-                <label  for="imagename">Image</label>
-                <input
-                  @change="onFileChange"
-                  class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
-                  placeholder="Venue"
-                  type="file"
-                  id="imagename"
-                  name="image"
-                />
-              </div> -->
+            <div>
+              <label for="imagename">Image</label>
+              <input @change="imageUploaded" class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm"
+                placeholder="Venue" type="file" id="imagename" name="image" />
+            </div>
 
-              <div>
-                <label for="type"> Event type</label>
+            <div>
+              <label for="type"> Event type</label>
 
-                <select name="type" id="type" v-model="form.type"
-                  class="w-full rounded-lg bg-gray-200 border-black p-3 text-sm">
-                  <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}
-                  </option>
-                </select>
-              </div>
-              <div>
+              <select name="type" id="type" v-model="form.type"
+                class="w-full rounded-lg bg-gray-200 border-black p-3 text-sm">
+                <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}
+                </option>
+              </select>
+            </div>
+            <div>
             </div>
           </div>
           <div>
@@ -96,6 +90,7 @@ export default {
   data() {
     return {
       error: "",
+      base64String: "",
       eventTypes: [],
       userId: authStore().getUser.uuid,
       token: authStore().getToken,
@@ -112,6 +107,19 @@ export default {
     }
   },
   methods: {
+    async imageUploaded() {
+      let file = document.querySelector(
+        'input[type=file]')['files'][0];
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.base64String = reader.result
+          .replace('data:', '')
+          .replace(/^.+,/, '');
+      };
+      reader.readAsDataURL(file);
+    },
+
     async handleSubmit() {
       try {
         const response = await $fetch('http://127.0.0.1:8000/events/create/', {
@@ -129,6 +137,7 @@ export default {
             capacity: this.form.capacity,
             start: this.form.start,
             end: this.form.end,
+            image: this.base64String,
             event_type: this.form.type,
           }
         });

@@ -65,7 +65,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/users/login/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/users/login/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -94,6 +94,7 @@ export default {
                 store.setToken(response.data.token)
                 store.setPermissions(response.permissions)
                 store.login()
+
 
                 return await navigateTo(`/`)
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+    <section class="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center">
 
         <!-- <form v-if="events.length" class="flex-none max-w-md mx-auto my-10">
             <label for="default-search"
@@ -20,15 +20,13 @@
             </div>
         </form> -->
 
-        <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row items-center justify-center">
-            <div v-for="event in events" :key="event.uuid" class="max-w-2xl">
+        <div v-if="events.length" class="w-full bg-gray-100 flex gap-10 flex-row flex-wrap items-center justify-center">
+            <div v-for="event in events" :key="event.uuid" class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/3 shadow-2xl">
 
                 <div
-                    class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
+                    class="w-full bg-white shadow-md border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                     <a href="#" @click="viewEvent(event.uuid)">
-                        <img class="rounded-t-lg"
-                            src="https://st2.depositphotos.com/1017986/7924/i/450/depositphotos_79249744-stock-photo-group-of-happy-friends-at.jpg"
-                            alt="">
+                        <img class="w-full rounded-t-lg h-60 object-fit" :src='event.image' alt="">
                     </a>
                     <div class="p-5">
                         <a href="#" @click="viewEvent(event.uuid)">
@@ -67,13 +65,14 @@
 
 <script>
 
-import { storeToRefs } from 'pinia'
 import { authStore } from '~/store';
+import { Base64ToBlobUrl } from '~/services';
 
 export default {
     name: "Events",
     data() {
         return {
+            src: '',
             events: [],
             userId: authStore().getUser.uuid,
             token: authStore().getToken,
@@ -92,9 +91,16 @@ export default {
                     user_id: this.userId,
                 }
             });
-            this.events = response.events
+
             console.log(response);
+            this.events = response.events
+        
+            for (let x in this.events) {
+                this.events[x].image = Base64ToBlobUrl(this.events[x].image)
+            }
+
         },
+
 
         // async searchEvents() {
         //     const response = await $fetch('http://127.0.0.1:8000/events/get/search/', {
@@ -112,7 +118,8 @@ export default {
 
         async viewEvent(eventId) {
             return await navigateTo(`/events/event/${eventId}`)
-        }
+        },
+
     },
     created() {
         this.getEvents();

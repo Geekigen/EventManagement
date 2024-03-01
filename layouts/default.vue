@@ -1,5 +1,5 @@
 <template>
     <Header />
-<slot />
-<Footer/>
+    <slot />
+    <Footer />
 </template>

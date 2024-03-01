@@ -4,6 +4,12 @@
       <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
         <img alt="" src="https://res.cloudinary.com/di2a8gjsq/image/upload/v1708685688/fireworks-168001_ldmvbx.jpg"
           class="rounded-md absolute inset-0 h-full w-full object-cover opacity-80 " />
+
+        <div class="hidden lg:relative lg:block lg:p-12">
+          <a class="block text-white" href="#">
+            <span class="sr-only">Home</span>
+          </a>
+        </div>
       </section>
 
       <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
@@ -19,7 +25,7 @@
               </svg>
             </a>
 
-            <h1 class="mt-2 text-2xl font-bold text- text-blue-600 sm:text-3xl md:text-4xl">
+            <h1 class="mt-2 text-2xl font-bold text- text-emerald-600 sm:text-3xl md:text-4xl">
               Explore events
             </h1>
 
@@ -69,24 +75,19 @@
 
               <select v-model="form.role" name="role" id="role"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="">Please select</option>
                 <option value="attendee">attendee</option>
                 <option value="creator">creator</option>
               </select>
             </div>
 
 
-            <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+            <div class="col-span-6 sm:flex sm:items-center sm:gap-4 my-10">
               <button type="button"
-                class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                class="w-full inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 @click=handleSubmit>
-                Create an account
+                Update profile
               </button>
 
-              <p class="mt-4 text-sm text-gray-500 sm:mt-0">
-                Already have an account?
-                <a href="/auth/login" class="text-gray-700 underline">Log in</a>.
-              </p>
             </div>
           </form>
         </div>
@@ -94,42 +95,49 @@
     </div>
   </section>
 </template>
-
+  
 <script>
+
+import { authStore } from '~/store';
+
 export default {
-  name: 'Register',
+  name: 'Profile',
   data() {
     return {
       error: "",
+      userId: authStore().getUser.uuid,
+      token: authStore().getToken,
       form: {
-        username: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        password1: '',
-        password2: '',
-        role: ''
+        username: authStore().getUser.username,
+        email: authStore().getUser.email,
+        firstName: authStore().getUser.firstname,
+        lastName: authStore().getUser.lastname,
+        password1: "",
+        password2: "",
+        role: authStore().getUser.role,
       }
     }
   },
   methods: {
     async handleSubmit() {
       try {
-        const response = await $fetch(`${this.$config.public.apiUrl}/users/register/`, {
+        const response = await $fetch(`${this.$config.public.apiUrl}/users/change-credentials/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: {
-            username: this.form.username,
+            user_id: this.userId,
+            token: this.token,
+            new_username: this.form.username,
             email: this.form.email,
             password1: this.form.password1,
             password2: this.form.password2,
-            user_role: this.form.role
+            role: this.form.role,
           }
         });
 
-        if (response.code !== "201") {
+        if (response.code !== "200") {
           return this.error = response.message
         }
         alert(response.message)

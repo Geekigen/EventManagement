@@ -1,6 +1,6 @@
 <template>
     <section
-        class="relative overflow-hidden bg-gray-200">
+        class="relative overflow-hidden bg-gray-200 bg-[url('https://images.unsplash.com/photo-1599739291060-4578e77dac5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 shadow-2xl">
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -65,7 +65,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/users/login/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/users/login/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -89,22 +89,22 @@ export default {
                 }
 
                 const store = authStore()
-                
+
                 store.setUser(response.data)
                 store.setToken(response.data.token)
                 store.setPermissions(response.permissions)
                 store.login()
 
+
                 return await navigateTo(`/`)
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
         }
     },
-    created(){
+    created() {
         const store = authStore()
         store.logout()
     }

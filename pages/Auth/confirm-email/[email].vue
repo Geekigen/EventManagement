@@ -30,7 +30,7 @@
                                 placeholder="code..." required="">
                         </div>
                         <button type="button" @click="handleSubmit"
-                            class="w-full text-black bg-sky-500/25 hover:bg-sky-500/50 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Submit</button>
+                            class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Submit</button>
                     </form>
                 </div>
             </div>
@@ -53,7 +53,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/users/confirm-email/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/users/confirm-email/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -71,7 +71,6 @@ export default {
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
         }

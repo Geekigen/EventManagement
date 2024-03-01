@@ -40,7 +40,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/users/forgot-password/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/users/forgot-password/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -49,7 +49,6 @@ export default {
                         email: this.form.email,
                     }
                 });
-                console.log(response);
                 if (response.code !== "200") {
                     return this.error = response.message
                 }
@@ -57,7 +56,6 @@ export default {
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
         }

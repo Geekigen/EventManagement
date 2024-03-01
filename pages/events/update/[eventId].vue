@@ -6,7 +6,7 @@
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
                     <Error v-if="error" :text=error />
-                    
+
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Update event
                     </h1>
@@ -50,8 +50,7 @@
                         <div>
                             <label for="start"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
-                            <input type="datetime-local" name="start" id="start"
-                                v-model="form.start"
+                            <input type="datetime-local" name="start" id="start" v-model="form.start"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
@@ -71,7 +70,8 @@
                             </select>
                         </div>
                         <button type="button" @click="handleSubmit"
-                            class="w-full text-black bg-sky-500/50 hover:bg-sky-500/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update event</button>
+                            class="w-full text-black bg-sky-500/50 hover:bg-sky-500/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update
+                            event</button>
                     </form>
                 </div>
             </div>
@@ -102,7 +102,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/update/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/update/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ export default {
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
                 }
-                
+
                 alert(response.message)
 
                 if (response.code !== "200") {
@@ -132,13 +132,13 @@ export default {
                 return await navigateTo(`/events/event/${this.eventId}`)
 
             } catch (error) {
-                this.error = error
+                this.error = "Conncetion error"
             }
         },
 
         async getEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/get/id/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
                     method: 'POST',
                     body: {
                         event_id: this.eventId
@@ -158,11 +158,11 @@ export default {
                 this.form.type = eventData.type
 
             } catch (error) {
-                this.error = error
+                this.error = "Conncetion error"
             }
         }
     },
-    created(){
+    created() {
         this.getEvent()
     }
 }

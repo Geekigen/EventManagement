@@ -2,9 +2,9 @@
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div
-                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
+                class="w-full bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    
+
                     <Error v-if="error" :text=error />
 
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -16,7 +16,8 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                             <select id="role" v-model="form.roleId"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option v-for="role in roles" v-bind:key="role.uuid" v-bind:value="role.uuid">{{ role.name }}</option>
+                                <option v-for="role in roles" v-bind:key="role.uuid" v-bind:value="role.uuid">{{ role.name
+                                }}</option>
                             </select>
                         </div>
                         <button type="button" @click="assignRole"
@@ -50,7 +51,7 @@ export default {
     methods: {
         async assignRole() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/assign/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/assign/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -68,7 +69,7 @@ export default {
                 if (response.code == "480") {
                     return await navigateTo(`/auth/login/`)
                 }
-                
+
                 alert(response.message)
 
                 if (response.code !== "200") {
@@ -78,7 +79,6 @@ export default {
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
 
@@ -86,7 +86,7 @@ export default {
 
         async getRoles() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/get/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/get/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -101,12 +101,10 @@ export default {
                 if (response.code !== "200") {
                     return this.error = response.message
                 }
-                console.log(response);
                 this.roles = response.roles
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
         },
     },

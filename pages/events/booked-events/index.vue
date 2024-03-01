@@ -1,34 +1,15 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+    <section class="w-full h-screen bg-gray-100 flex flex-col items-center justify-center">
 
-        <!-- <form v-if="events.length" class="flex-none max-w-md mx-auto my-10">
-            <label for="default-search"
-                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input type="text" id="search" v-model="form.search"
-                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search events.." required />
-                <button type="button" @click="searchEvents"
-                    class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-            </div>
-        </form> -->
-
-        <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row items-center justify-center">
-            <div v-for="event in events" :key="event.uuid" class="max-w-2xl">
+        <div v-if="events.length" class="w-full bg-gray-100 flex gap-10 flex-row flex-wrap items-center justify-center">
+            <div v-for="event in events" :key="event.uuid"
+                class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 w-[400px] shadow-2xl">
 
                 <div
-                    class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
+                    class="w-full bg-white shadow-md border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                     <a href="#" @click="viewEvent(event.uuid)">
-                        <img class="rounded-t-lg"
-                            src="https://st2.depositphotos.com/1017986/7924/i/450/depositphotos_79249744-stock-photo-group-of-happy-friends-at.jpg"
-                            alt="">
+                        <img class="w-full rounded-t-lg h-60 object-fit" :src='event.image' :key="event.uuid"
+                            onerror="handleImageError" alt="">
                     </a>
                     <div class="p-5">
                         <a href="#" @click="viewEvent(event.uuid)">
@@ -56,8 +37,8 @@
 
 <script>
 
-import { storeToRefs } from 'pinia'
 import { authStore } from '~/store';
+import { handleImageError } from '~/services';
 
 export default {
     name: "Events",
@@ -69,8 +50,9 @@ export default {
         };
     },
     methods: {
+        handleImageError,
         async getEvents() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/booked/', {
+            const response = await $fetch(`${this.$config.public.apiUrl}/events/get/booked/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,23 +63,9 @@ export default {
                     user_id: this.userId,
                 }
             });
-            this.events = response.events
-            console.log(response);
-        },
 
-        // async searchEvents() {
-        //     const response = await $fetch('http://127.0.0.1:8000/events/get/search/', {
-        //         method: 'POST',
-        //         body: {
-        //             search: this.form.search
-        //         },
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //     });
-        //     this.events = response.events
-        //     console.log(response);
-        // },
+            this.events = response.events
+        },
 
         async viewEvent(eventId) {
             return await navigateTo(`/events/event/${eventId}`)

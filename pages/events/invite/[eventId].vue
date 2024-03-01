@@ -7,7 +7,7 @@
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
 
-                    <Error v-if="error" text="error" />
+                    <Error v-if="error" :text=error />
 
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Invite
@@ -49,7 +49,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/invite/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/invite/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,14 +73,11 @@ export default {
                     return this.error = response.message
                 }
 
-                console.log(response);
-
                 alert(response.message)
                 return await navigateTo(`/events/event/${this.eventId}`)
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
         }

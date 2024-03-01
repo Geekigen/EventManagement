@@ -1,8 +1,5 @@
 <template>
     <div class="flex md:flex-row flex-col items-center justify-center px-6 py-8 w-full h-screen">
-        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-
-        <!-- Code block starts -->
         <div id="popover"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 flex flex-col justify-center items-center gap-10">
             <div class="w-full bg-white rounded shadow-2xl">
@@ -38,11 +35,11 @@
              <button type="button" @click="createRole"
                             class="w-1/2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create role</button>
         </div>
-        <!-- Code block ends -->
     </div>
 </template>
 
 <script>
+
 import { authStore } from '~/store';
 export default{
     name:"Roles",
@@ -58,7 +55,7 @@ export default{
     methods:{
         async getRoles(){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/get/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/get/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,18 +70,16 @@ export default{
                 if (response.code !== "200") {
                     return this.error = response.message
                 }
-                console.log(response);
                 this.roles = response.roles
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
         },
 
         async deleteRole(roleId){
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/roles/delete/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/roles/delete/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -111,7 +106,6 @@ export default{
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
         },
 

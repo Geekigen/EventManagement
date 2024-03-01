@@ -49,7 +49,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/invite/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/invite/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,14 +73,11 @@ export default {
                     return this.error = response.message
                 }
 
-                console.log(response);
-
                 alert(response.message)
                 return await navigateTo(`/events/event/${this.eventId}`)
 
             } catch (error) {
                 this.error = "Connection error"
-                console.error('Error:', error);
             }
 
         }

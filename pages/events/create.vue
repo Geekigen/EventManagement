@@ -67,8 +67,6 @@
             </div>
           </div>
 
-
-
           <div class="mt-4">
             <button @click="handleSubmit" type="button"
               class="inline-block w-full rounded-lg bg-blue-700 px-5 py-3 font-medium text-white sm:w-auto">
@@ -122,7 +120,7 @@ export default {
 
     async handleSubmit() {
       try {
-        const response = await $fetch('http://127.0.0.1:8000/events/create/', {
+        const response = await $fetch(`${this.$config.public.apiUrl}/events/create/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -142,8 +140,6 @@ export default {
           }
         });
 
-        console.log(response);
-
         if (response.code == "480") {
           return await navigateTo(`/auth/login/`)
         }
@@ -157,18 +153,21 @@ export default {
 
       } catch (error) {
         this.error = "Connection error"
-        console.error('Error:', error);
       }
 
     },
     async getEventTypes() {
-      const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      this.eventTypes = response.event_types
+      try {
+        const response = await $fetch(`${this.$config.public.apiUrl}/events/event-types/get/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+        this.eventTypes = response.event_types
+      } catch (error) {
+        this.error = "Connection error"
+      }
     },
 
   },

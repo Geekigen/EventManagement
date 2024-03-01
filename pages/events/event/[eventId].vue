@@ -6,7 +6,7 @@
 
             <div class="bg-white shadow-md border border-gray-200 rounded-lg w-full dark:bg-gray-800 dark:border-gray-700">
 
-                <img class="w-full rounded-t-lg h-64 object-fill" :src='event.image' alt="">
+                <img class="w-full rounded-t-lg h-64 object-fill" :src='event.image' :onerror="handleImageError" alt="">
 
                 <div class="p-5">
                     <a href="#" @click="viewEvent(event.uuid)">
@@ -82,7 +82,7 @@
 
 import { storeToRefs } from 'pinia'
 import { authStore } from '~/store';
-import { Base64ToBlobUrl } from '~/services';
+import { Base64ToBlobUrl, handleImageError } from '~/services';
 
 export default {
     name: "Event",
@@ -102,8 +102,9 @@ export default {
         }
     },
     methods: {
+        handleImageError,
         async getEvent() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/id/', {
+            const response = await $fetch(`${this.$config.public.apiUrl}/events/get/id/`, {
                 method: 'POST',
                 body: {
                     user_id: this.userId,
@@ -120,7 +121,7 @@ export default {
 
         async bookEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attend/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/attend/`, {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -146,7 +147,7 @@ export default {
 
         async unbookEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/unbook/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/unbook/`, {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -176,7 +177,7 @@ export default {
 
         async deleteEvent() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/delete/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/delete/`, {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -203,7 +204,7 @@ export default {
 
         async getAttendees() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attendees/get/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/get/`, {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -214,7 +215,6 @@ export default {
                         'Content-Type': 'application/json'
                     },
                 });
-                console.log(response);
                 this.attendees = response.attendees
             } catch (error) {
                 this.error = error
@@ -223,7 +223,7 @@ export default {
 
         async searchAttendee() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/attendees/search/', {
+                const response = await $fetch(`${this.$config.public.apiUrl}/events/attendees/search/`, {
                     method: 'POST',
                     body: {
                         user_id: this.userId,
@@ -234,7 +234,6 @@ export default {
                         'Content-Type': 'application/json'
                     },
                 });
-                console.log(response);
                 if (response.attendees.length) {
                     return this.alreadyBooked = true
                 } else {

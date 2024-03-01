@@ -38,7 +38,7 @@
 <script>
 
 import { authStore } from '~/store';
-import { Base64ToBlobUrl, handleImageError } from '~/services';
+import { handleImageError } from '~/services';
 
 export default {
     name: "Events",
@@ -65,10 +65,6 @@ export default {
             });
 
             this.events = response.events
-
-            for (let x in this.events) {
-                this.events[x].image = Base64ToBlobUrl(this.events[x].image)
-            }
         },
 
         async viewEvent(eventId) {

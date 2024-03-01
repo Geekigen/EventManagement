@@ -80,7 +80,7 @@
 
 import { storeToRefs } from 'pinia'
 import { authStore } from '~/store';
-import { Base64ToBlobUrl, handleImageError } from '~/services';
+import { handleImageError } from '~/services';
 
 export default {
     name: "Event",
@@ -115,7 +115,6 @@ export default {
                     },
                 });
                 this.event = response.events[0]
-                this.event.image = Base64ToBlobUrl(this.event.image)
             } catch (error) {
                 this.error = "Connection error"
             }

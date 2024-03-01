@@ -61,13 +61,7 @@ export default {
                     user_id: this.userId,
                 }
             });
-
             this.events = response.events
-        
-            for (let x in this.events) {
-                this.events[x].image = Base64ToBlobUrl(this.events[x].image)
-            }
-
         },
 
         async viewEvent(eventId) {

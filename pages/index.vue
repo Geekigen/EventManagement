@@ -1,8 +1,8 @@
 <template>
-  <section class="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center px-20">
-    <div v-for="eventType in eventTypes" class="w-full min-h-full bg-gray-100 flex flex-col flex-wrap items-start justify-center my-10">
+  <section class="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center px-20  dark:bg-slate-600">
+    <div v-for="eventType in eventTypes" class="w-full min-h-full bg-gray-100  dark:bg-slate-600 flex flex-col flex-wrap items-start justify-center my-10">
       <h1 v-if="events.filter(event => event.event_type == eventType).length" class="mb-10 text-3xl font-extrabold leading-none tracking-tight text-gray-700 md:text-3xl lg:text-4xl dark:text-white">{{ eventType }}</h1>
-      <div v-if="events.length" class="w-full bg-gray-100 flex gap-10 flex-row flex-wrap items-center justify-start">
+      <div v-if="events.length" class="w-full bg-gray-100  dark:bg-slate-600 flex gap-10 flex-row flex-wrap items-center justify-start">
         <div v-for="event in events" class="max-w-2xl">
           <div v-if="event.event_type == eventType" class="max-w-2xl" :key="event.uuid">
             <div
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     async getEvents() {
-      const response = await $fetch('http://127.0.0.1:8000/events/get/', {
+      const response = await $fetch('http://127.0.0.1:9000/events/get/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export default {
     },
 
     async getEventTypes() {
-      const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
+      const response = await $fetch('http://127.0.0.1:9000/events/event-types/get/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

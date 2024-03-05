@@ -69,7 +69,7 @@
                     name="type"
                     id="type"
                     v-model="form.type"
-                    class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                    class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
                   >
                   <option v-for="eventType in eventTypes" v-bind:key="eventType" v-bind:value="eventType">{{ eventType }}</option>
                   </select>
@@ -77,7 +77,7 @@
               </div>
             </div>
             <div>
-              <label  for="message">Message</label>
+              <label  for="message">Description</label>
   
               <textarea
                 class="w-full rounded-lg  bg-gray-300 border-black p-3 text-sm"
@@ -153,7 +153,7 @@ export default {
     methods: {
         async handleSubmit() {
             try {
-                const response = await $fetch('http://127.0.0.1:8000/events/create/', {
+                const response = await $fetch('http://127.0.0.1:9000/events/create/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -192,7 +192,7 @@ export default {
 
         },
         async getEventTypes() {
-            const response = await $fetch('http://127.0.0.1:8000/events/event-types/get/', {
+            const response = await $fetch('http://127.0.0.1:9000/events/event-types/get/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

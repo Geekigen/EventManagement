@@ -3,11 +3,11 @@
         <div v-if="event" :key="event.uuid"
             class="transition duration-150 ease-in-out md:mt-0 mt-8 top-0 left-0 sm:ml-10 md:ml-10 w-10/12 md:w-1/2 shadow-2xl">
 
-            <Error :text="error"></Error>
+            <!-- <Error :text="error"></Error> -->
 
             <div class="bg-white shadow-md border border-gray-200 rounded-lg w-full dark:bg-gray-800 dark:border-gray-700">
 
-                <img class="w-full rounded-t-lg h-64 object-fill" :src='event.image' :onerror="handleImageError" alt="">
+                <img class="w-full rounded-t-lg h-68 object-fill" :src='event.image' :key="event.uuid" :onerror="handleImageError" alt="">
 
                 <div class="p-5">
                     <a href="#" @click="viewEvent(event.uuid)">

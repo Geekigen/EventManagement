@@ -9,7 +9,7 @@
                     class="w-full bg-white shadow-md border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                     <a href="#" @click="viewEvent(event.uuid)">
                         <img class="w-full rounded-t-lg h-60 object-fit" :src='event.image' :key="event.uuid"
-                            onerror="handleImageError" alt="">
+                            :onerror="handleImageError" alt="">
                     </a>
                     <div class="p-5">
                         <a href="#" @click="viewEvent(event.uuid)">

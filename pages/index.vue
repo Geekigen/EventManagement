@@ -37,9 +37,7 @@
     <h1 v-if="events.length == 0">No events</h1>
   </section>
 </template>
-
 <script>
-// const config = useRuntimeConfig()
 export default {
   name: "Events",
   data() {
@@ -53,7 +51,7 @@ export default {
   },
   methods: {
     async getEvents() {
-      const response = await $fetch('http://127.0.0.1:9000/events/get/', {
+    const response= await $fetch('http://127.0.0.1:9000/events/get/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

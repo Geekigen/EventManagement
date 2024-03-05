@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center">
+    <section class="w-full h-screen bg-gray-50 flex flex-col items-center justify-center scroll-m-0">
 
         <!-- <form v-if="events.length" class="flex-none max-w-md mx-auto my-10">
             <label for="default-search"
@@ -20,7 +20,7 @@
             </div>
         </form> -->
 
-        <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row items-center justify-center">
+        <div v-if="events.length" class="w-full bg-gray-50 flex gap-10 flex-row flex-wrap items-center justify-center overflow-scroll">
             <div v-for="event in events" :key="event.uuid" class="max-w-2xl">
 
                 <div
@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         async getEvents() {
-            const response = await $fetch('http://127.0.0.1:8000/events/get/created/', {
+            const response = await $fetch('http://127.0.0.1:9000/events/get/created/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

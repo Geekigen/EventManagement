@@ -85,7 +85,7 @@
         {{ eventType }}</h1>
       <div v-if="events.filter(event => event.event_type == eventType).length"
         class="w-full bg-gray-100 flex gap-10 flex-row flex-wrap items-center justify-start">
-        <div v-for="event in events.filter(event => event.event_type == eventType)"
+        <div v-for="event in events.filter(event => event.event_type == eventType).slice(0, 3)"
           class="transition duration-150 ease-in-out top-0 left-0 w-[400px] shadow-2xl">
           <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <a href="#" @click="viewEvent(event.uuid)">

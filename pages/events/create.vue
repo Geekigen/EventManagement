@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-100">
+  <section class="bg-gray-100 bg-[url('https://images.unsplash.com/photo-1599739291060-4578e77dac5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <Error v-if="error" :text=error />
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
@@ -19,12 +19,12 @@
 
             <div>
               <label for="phone">Capacity</label>
-              <input class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm" placeholder="Capacity" type="text"
+              <input class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm" placeholder="Capacity" type="number"
                 id="phone" v-model="form.capacity" />
             </div>
             <div>
               <label for="phone">Price</label>
-              <input class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm" placeholder="Price" type="text"
+              <input class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm" placeholder="Price" type="number"
                 id="phone" v-model="form.price" />
             </div>
           </div>
@@ -143,7 +143,7 @@ export default {
         if (response.code == "480") {
           return await navigateTo(`/auth/login/`)
         }
-
+        console.log(response);
         alert(response.message)
 
         if (response.code !== "201") {

@@ -30,8 +30,9 @@
           </div>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label for="imagename">Image</label>
-              <input @change="imageUploaded" class="w-full rounded-lg  bg-gray-200 border-black p-3 text-sm"
+              <label for="imagename" >Image <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 48 48"><path fill="#8cbcd6" d="M40 41H8c-2.2 0-4-1.8-4-4V11c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4v26c0 2.2-1.8 4-4 4"/><circle cx="35" cy="16" r="3" fill="#b3ddf5"/><path fill="#9ac9e3" d="M20 16L9 32h22z"/><path fill="#b3ddf5" d="m31 22l-8 10h16z"/><circle cx="38" cy="38" r="10" fill="#43a047"/><g fill="#fff"><path d="M36 32h4v12h-4z"/><path d="M32 36h12v4H32z"/></g></svg>
+             </label>
+              <input @change="imageUploaded" class=" hidden w-full rounded-lg  bg-gray-200"
                 placeholder="Venue" type="file" id="imagename" name="image" />
             </div>
 

@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public:{
-      apiUrl: process.env.NUXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000"
+      apiUrl: process.env.NUXT_PUBLIC_API_URL ?? "http://127.0.0.1:9000",
+      apiAuthUrl: process.env.NUXT_PUBLIC_API_AUTH_URL ?? "http://127.0.0.1:8000",
     }
   },
   devtools: { enabled: true },

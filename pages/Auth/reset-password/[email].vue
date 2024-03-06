@@ -80,7 +80,7 @@ export default {
                 if (this.form.password1 !== this.form.password2) {
                     return this.error = "Passwords do not match"
                 }
-                const response = await $fetch(`${this.$config.public.apiUrl}/users/reset-password/`, {
+                const response = await $fetch(`${this.$config.public.apiAuthUrl}/reset-password/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

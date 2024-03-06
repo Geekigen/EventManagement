@@ -4,6 +4,20 @@
       <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
         <img alt="" src="https://res.cloudinary.com/di2a8gjsq/image/upload/v1708685688/fireworks-168001_ldmvbx.jpg"
           class="rounded-md absolute inset-0 h-full w-full object-cover opacity-80 " />
+
+        <div class="hidden lg:relative lg:block lg:p-12">
+          <a class="block text-white" href="#">
+            <span class="sr-only">Home</span>
+          </a>
+
+          <!-- <h2 class="mt-6 text-2xl font-bold text-emerald-600 sm:text-3xl md:text-4xl ">
+          Explore events
+        </h2>
+
+        <p class="mt-4 leading-relaxed text-teal-100">
+          The best place to book , invite , create and search for events online .Just a click away 
+        </p> -->
+        </div>
       </section>
 
       <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
@@ -19,7 +33,7 @@
               </svg>
             </a>
 
-            <h1 class="mt-2 text-2xl font-bold text- text-blue-600 sm:text-3xl md:text-4xl">
+            <h1 class="mt-2 text-2xl font-bold text- text-emerald-600 sm:text-3xl md:text-4xl">
               Explore events
             </h1>
 
@@ -29,7 +43,7 @@
             </p>
           </div>
 
-          <Error v-if="error" :text=error />
+          <Error v-if="error" :text= error />
 
           <form action="#" class="mt-8 grid grid-cols-6 gap-6 bg-white p-10">
             <div class="col-span-6">
@@ -40,7 +54,20 @@
               <input v-model="form.username" type="text" id="username" name="username"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
+            <!-- 
+          <div class="col-span-6 sm:col-span-3">
+            <label for="LastName" class="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
 
+            <input
+            v-model="form.lastName"
+              type="text"
+              id="LastName"
+              name="last_name"
+              class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+            />
+          </div> -->
 
             <div class="col-span-6">
               <label for="Email" class="block text-sm font-medium text-gray-700 mb-3 "> Email </label>
@@ -65,9 +92,9 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
             <div class="col-span-6 ">
-              <label for="role" class="block text-sm font-medium text-gray-900 mb-3"> Role </label>
+              <label for="HeadlineAct" class="block text-sm font-medium text-gray-900 mb-3"> Role </label>
 
-              <select v-model="form.role" name="role" id="role"
+              <select v-model="form.role" name="HeadlineAct" id="HeadlineAct"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="">Please select</option>
                 <option value="attendee">attendee</option>
@@ -115,7 +142,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        const response = await $fetch(`${this.$config.public.apiUrl}/users/register/`, {
+        const response = await $fetch('http://127.0.0.1:9000/users/register/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -128,6 +155,8 @@ export default {
             user_role: this.form.role
           }
         });
+
+        console.log(response);
 
         if (response.code !== "201") {
           return this.error = response.message
